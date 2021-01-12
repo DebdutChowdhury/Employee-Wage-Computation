@@ -75,5 +75,33 @@ month_wage(){
 	done
 	echo $total_salary
 }
-result="$(month_wage)"
+
+# function for calculate time for working in a month
+working_time(){
+	# constant 
+	local MAX_WORK_DAY=20
+	local MAX_WORK_HR=100
+	local emp_rate_pr_hr=20
+	local full_time=1
+	local part_time=0
+	local total_salary=0
+	local cur_day=1
+	local cur_hr=0
+	local emp_check=$((RANDOM%3))
+
+	while (( cur_hr<MAX_WORK_HR && cur_day<MAX_WORK_DAY ))
+	do
+		case $emp_check in
+			$full_time) empHrs=8;;
+			$part_time) empHrs=4;;
+			*) empHrs=0;;
+		esac
+		((cur_day++))
+		cur_hr=$((empHrs+cur_hr))
+		salary=$((empHrs*emp_rate_pr_hr))
+		total_salary=$(($salary+$total_salary))
+	done
+	echo $cur_hr $cur_day
+}
+result="$(working_time)"
 echo $result
