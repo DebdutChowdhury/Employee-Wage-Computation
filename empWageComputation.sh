@@ -103,5 +103,12 @@ working_time(){
 	done
 	echo $cur_hr $cur_day
 }
-result="$(working_time)"
+
+# function for get work hour limit
+work_hour(){
+	local time=$(working_time)
+	echo $time
+
+}
+result="$(work_hour)"
 echo $result
