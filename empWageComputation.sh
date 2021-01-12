@@ -12,7 +12,7 @@ attendance(){
 	fi
 }
 
-dailywage(){
+daily_wage(){
 	local result="$(attendance)"
 	if [ $result == 'present' ]
 	then
@@ -24,7 +24,7 @@ dailywage(){
 	echo $wage
 }
 
-PartTimeWage(){
+Part_Time_Wage(){
 	local result="$(attendance)"
 	if [ $result == 'present' ]
 	then
@@ -35,5 +35,21 @@ PartTimeWage(){
 	fi
 	echo $wage
 }
-result="$(PartTimeWage)"
+
+switch_case(){
+	local emp_rate_per_hr=20
+	local part_time=0
+	local full_time=1
+	local emp_check=$((RANDOM%3))
+	
+	case $emp_check in
+		$full_time) empHrs=8;;
+		$part_time) empHrs=4;;
+		*) empHrs=0;;
+	esac
+	salary=$((empHrs*emp_rate_per_hr))
+	echo $salary
+	
+}
+result="$(switch_case)"
 echo $result
