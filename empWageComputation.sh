@@ -1,18 +1,39 @@
-#!/bin/bash -x
+#!/bin/bash 
 
-#constant
-IS_PRESENT=1
-EMP_RATE_PER_HR=20
-FULL_TIME=8
+attendance(){
 
-#variable
-empCheck=$(( RANDOM%2 ))
-dailyWage=0
+	var=$((RANDOM%2))
 
-if [ $empCheck -eq $IS_PRESENT ]
-then
-	echo "Employee is present"
-	dailyWage=$(( $EMP_RATE_PER_HR*$FULL_TIME ))
-else
-	echo "Employee is absent"
-fi
+	if (( var  == 1 ))
+	then
+		echo present
+	else
+		echo absent
+	fi
+}
+
+dailywage(){
+	local result="$(attendance)"
+	if [ $result == 'present' ]
+	then
+		wage=$((20 * 8))
+	elif [ $result == 'absent' ]
+	then
+		wage=0
+	fi
+	echo $wage
+}
+
+PartTimeWage(){
+	local result="$(attendance)"
+	if [ $result == 'present' ]
+	then
+		wage=$((20 * 8))
+	elif [ $result == 'absent' ]
+	then
+		wage=0
+	fi
+	echo $wage
+}
+result="$(PartTimeWage)"
+echo $result
