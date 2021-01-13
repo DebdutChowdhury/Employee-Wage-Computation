@@ -110,5 +110,36 @@ work_hour(){
 	echo $time
 
 }
-result="$(work_hour)"
+
+# function for store the dailly wage along with the total wage
+store_wage(){
+	local declare -A store
+	local count=0
+	local emp_rate_per_hr=20
+	local full_time=1
+	local part_time=0
+	local emp_check=$((RANDOM%3))
+	local total_salary=0
+	local cur_day=1
+	local cur_hr=0
+	local MAX_WORK_DAYS=20
+	local MAX_WORK_HR=100
+	
+	while (( cur_hr<MAX_WORK_HR && cur_day<MAX_WORK_DAY ))
+	do
+		case $emp_check in 
+			$full_time) empHr=8;;
+			$part_time) empHr=4;;
+			*) empHr=0;;
+		esac
+		((cur_day++))
+		cur_hr=$((empHr+cur_hr))
+		salary=$((empHr*emp_rate_per_hr))
+		total_salary=$(($total_salary + $salary))
+		store[((count++))]="$salary $total_salary"
+	done
+	echo ${store[@]}
+
+}
+result="$(store_wage)"
 echo $result
